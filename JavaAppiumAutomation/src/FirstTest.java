@@ -14,6 +14,10 @@ public class FirstTest {
     @Before
     public void setUp() throws Exception
     {
+        //Current working directory of the APK file
+        String current = System.getProperty("user.dir");
+        String apkFile = current + "\\apks\\org.wikipedia.apk";
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
 
         capabilities.setCapability("platformName","Android");
@@ -22,7 +26,7 @@ public class FirstTest {
         capabilities.setCapability("automationName","Appium");
         capabilities.setCapability("appPackage","org.wikipedia");
         capabilities.setCapability("appActivity",".main.MainActivity");
-        capabilities.setCapability("app","/Users/bogdansamukov/Documents/homework-software-testing/JavaAppiumAutomation/apks/org.wikipedia.apk");
+        capabilities.setCapability("app",apkFile);
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
     }
