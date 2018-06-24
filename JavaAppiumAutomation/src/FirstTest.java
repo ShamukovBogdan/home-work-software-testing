@@ -143,8 +143,8 @@ public class FirstTest {
             WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
             wait.withMessage(error_message + "\n");
             return wait.until(
-                    ExpectedConditions.presenceOfElementLocated(by)
-            );
+                ExpectedConditions.presenceOfElementLocated(by)
+        );
     }
 
     //Overloaded element wait method
