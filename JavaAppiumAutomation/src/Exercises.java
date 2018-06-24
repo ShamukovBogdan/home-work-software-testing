@@ -61,6 +61,47 @@ public class Exercises {
         );
     }
 
+    @Test
+    public void exerciseThird()
+    {
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_container"),
+                "Cannot find 'Search Wikipedia' input",
+                5
+        );
+
+        waitForElementAndSendKeys(
+                By.id("org.wikipedia:id/search_src_text"),
+                "Italy",
+                "Cannot find element 'Search…'",
+                5
+        );
+
+        waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Republic in Southern Europe']"),
+                "Cannot find 'Republic in Southern Europe' topic search in 'Italy'",
+                15
+        );
+
+        waitForElementPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='National sports team']"),
+                "National sports team' topic search in 'Italy'",
+                15
+        );
+
+        waitForElementAndClick(
+                By.id("org.wikipedia:id/search_close_btn"),
+                "Cannot find 'close' button",
+                5
+        );
+
+        waitForElementPresent(
+                By.id("org.wikipedia:id/search_empty_image"),
+                "Cannot find empty state image",
+                15
+        );
+    }
+
     //Element wait method
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
     {
@@ -88,4 +129,11 @@ public class Exercises {
         return element;
     }
 
+    // Wait and send keys method
+    private WebElement waitForElementAndSendKeys(By by, String value, String error_message, long timeoutInSeconds)
+    {
+        WebElement element = waitForElementPresent(by, error_message, timeoutInSeconds);
+        element.sendKeys(value);
+        return element;
+    }
 }
