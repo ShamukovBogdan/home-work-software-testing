@@ -59,7 +59,7 @@ public class Ex4 {
 
         waitForElementPresent(
                 By.id("//*[@resource-id='org.wikipedia:id/page_list_item_title']//*[contains(@text='Mercedes-Benz']"),
-                "Cannot find 'Object-oriented programming language' topic search in 'Java'",
+                "Cannot find text 'Mercedes-Benz",
                 15
         );
 
