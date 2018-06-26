@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 
-public class Exercises {
+public class Ex3 {
 
     private AppiumDriver driver;
 
@@ -40,25 +40,6 @@ public class Exercises {
     public void tearDown()
     {
         driver.quit();
-    }
-
-    @Test
-    public void exerciseTwo()
-    {
-        waitForElementAndClick(
-                By.id("org.wikipedia:id/search_container"),
-                "Cannot find 'Search Wikipedia' input",
-                5
-        );
-
-        checkForElement(
-                By.id("org.wikipedia:id/search_src_text"),
-                "Cannot find 'Search...' input",
-                5,
-                "text",
-                "We see unexpected title!",
-                "Search…"
-        );
     }
 
     @Test
@@ -110,15 +91,6 @@ public class Exercises {
         return wait.until(
                 ExpectedConditions.presenceOfElementLocated(by)
         );
-    }
-
-    // Check exist correct title method
-    private WebElement checkForElement(By by, String error_message, long timeoutInSeconds, String title, String message, String expected)
-    {
-        WebElement title_element = waitForElementPresent(by, error_message, timeoutInSeconds);
-        title = title_element.getAttribute("text");
-        Assert.assertEquals(message, expected, title);
-        return title_element;
     }
 
     //Element wait and click method
