@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.net.URL;
 
 public class Ex3 {
@@ -55,19 +56,13 @@ public class Ex3 {
                 By.id("org.wikipedia:id/search_src_text"),
                 "Italy",
                 "Cannot find element 'Search…'",
-                5
+                30
         );
 
-        waitForElementPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='Republic in Southern Europe']"),
-                "Cannot find 'Republic in Southern Europe' topic search in 'Italy'",
-                15
-        );
-
-        waitForElementPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/page_list_item_container']//*[@text='National sports team']"),
-                "National sports team' topic search in 'Italy'",
-                15
+        waitForElementsPresentAndPrint(
+                By.id("org.wikipedia:id/search_results_list"),
+                "Cannot find search results",
+                "android.widget.LinearLayout"
         );
 
         waitForElementAndClick(
@@ -76,9 +71,9 @@ public class Ex3 {
                 5
         );
 
-        waitForElementPresent(
-                By.id("org.wikipedia:id/search_empty_image"),
-                "Cannot find empty state image",
+        waitForElementNotPresent(
+                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_list']//*[@class='android.widget.ListView']"),
+                "Search result list is present!",
                 15
         );
     }
@@ -108,4 +103,26 @@ public class Ex3 {
         element.sendKeys(value);
         return element;
     }
+
+    // Search and print few results method
+    private WebElement waitForElementsPresentAndPrint (By by, String error_message,String class_name)
+    {
+        WebElement parentElement = waitForElementPresent(by, error_message, 30);
+        List<WebElement> childElements = parentElement.findElements(By.className(class_name));
+        childElements.get(0);
+        System.out.println(childElements);
+        childElements.get(1);
+        System.out.println(childElements);
+        return parentElement;
+    }
+
+    // Wait not present element method
+    private boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds) {
+        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        wait.withMessage(error_message + "\n");
+        return wait.until(
+                ExpectedConditions.invisibilityOfElementLocated(by)
+        );
+    }
+
 }
