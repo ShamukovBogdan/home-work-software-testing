@@ -74,7 +74,7 @@ public class DifficultTests {
 
         swipeUpToFindElement(
                 By.xpath("//*[@text='View page in browser']"),
-                "Cannot find the and of article",
+                "Cannot find the end of article",
                 20
         );
 

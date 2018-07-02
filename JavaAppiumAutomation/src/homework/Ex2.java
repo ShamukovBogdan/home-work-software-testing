@@ -44,7 +44,7 @@ public class Ex2 {
     }
 
     @Test
-    public void exerciseTwo()
+    public void checkTextElementInSearchInput()
     {
         waitForElementAndClick(
                 By.id("org.wikipedia:id/search_container"),
@@ -52,15 +52,12 @@ public class Ex2 {
                 5
         );
 
-        checkElementHasProperText(
-                By.id("org.wikipedia:id/search_src_text"),
-                "Cannot find 'Search...' input",
+        assertTextNotMatchDefaultLabel(
+                By.xpath("//*[@text='Search…']"),
                 "Search…",
-                "We see unexpected title!"
+                "Cannot find search label"
         );
     }
-
-    /*Methods*/
 
     // Element waiting method
     private WebElement waitForElementPresent(By by, String error_message, long timeoutInSeconds)
@@ -72,12 +69,6 @@ public class Ex2 {
         );
     }
 
-   // The method of waiting for an element with a parameter of 5 seconds
-    private WebElement waitForElementPresent(By by, String error_message)
-    {
-        return  waitForElementPresent(by, error_message, 5);
-    }
-
     // The method of waiting for an element and clicking on it
     private WebElement waitForElementAndClick(By by, String error_message, long timeoutInSeconds)
     {
@@ -86,16 +77,14 @@ public class Ex2 {
         return element;
     }
 
-    // The method of waiting for the element and sending the searched text
-    private void checkElementHasProperText(By by, String error_message, String expected_text, String error_message_for_check)
+    //Match text of element method
+    private void assertTextNotMatchDefaultLabel(By by, String search_text, String error_message)
     {
-        WebElement element = this.waitForElementPresent(by, error_message);
-        checkElementHasText(element, expected_text, error_message_for_check);
-    }
-
-    // Text validation method
-    private void checkElementHasText (WebElement element, String expected_text, String error_message_fot_check) {
-        String current_text = element.getAttribute("text");
-        Assert.assertEquals(error_message_fot_check, current_text, expected_text);
+        WebElement element = driver.findElement(by);
+        String text_element = element.getText();
+        if (text_element != search_text) {
+            String default_message = "Text of element '" + by.toString() + "' does not match default search label.";
+            throw new AssertionError(default_message + " " + error_message);
+        }
     }
 }
