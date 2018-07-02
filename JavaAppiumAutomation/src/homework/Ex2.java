@@ -82,7 +82,7 @@ public class Ex2 {
     {
         WebElement element = driver.findElement(by);
         String text_element = element.getText();
-        if (text_element != search_text) {
+        if (!text_element.equals(search_text)) {
             String default_message = "Text of element '" + by.toString() + "' does not match default search label.";
             throw new AssertionError(default_message + " " + error_message);
         }
