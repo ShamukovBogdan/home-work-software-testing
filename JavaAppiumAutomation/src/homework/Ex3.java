@@ -46,7 +46,7 @@ public class Ex3 {
     }
 
     @Test
-    public void exerciseThird()
+    public void testEmptyAndNotEmptyResults()
     {
         waitForElementAndClick(
                 By.id("org.wikipedia:id/search_container"),
@@ -54,17 +54,24 @@ public class Ex3 {
                 5
         );
 
+        String search_type_text = "Italy";
         waitForElementAndSendKeys(
                 By.id("org.wikipedia:id/search_src_text"),
-                "Italy",
+                search_type_text,
                 "Cannot find element 'Search…'",
                 30
         );
 
-        waitForElementsPresentAndPrint(
-                By.id("org.wikipedia:id/search_results_list"),
-                "Cannot find search results",
-                "android.widget.LinearLayout"
+        String search_result_locator = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']";
+        waitForElementPresent(
+                By.xpath(search_result_locator),
+                "Cannot find search result by: " + search_type_text + ".",
+                15
+        );
+
+        assertElementsPresent(
+                By.xpath(search_result_locator),
+                "We not found results of " + search_type_text + "."
         );
 
         waitForElementAndClick(
@@ -73,10 +80,16 @@ public class Ex3 {
                 5
         );
 
-        waitForElementNotPresent(
-                By.xpath("//*[@resource-id='org.wikipedia:id/search_results_list']//*[@class='android.widget.ListView']"),
-                "Search result list is present!",
+        String empty_result_label = "//*[@text='Search and read the free encyclopedia in your language']";
+        waitForElementPresent(
+                By.xpath(empty_result_label),
+                "Cannot find empty result labale on page by the request " + search_type_text + ".",
                 15
+        );
+
+        assertElementNotPresent(
+                By.xpath(search_result_locator),
+                "We found some result's"
         );
     }
 
@@ -106,25 +119,25 @@ public class Ex3 {
         return element;
     }
 
-    // Search and print few results method
-    private WebElement waitForElementsPresentAndPrint (By by, String error_message,String class_name)
+    //Assert method size elements == 0
+    private void assertElementsPresent (By by, String error_message)
     {
-        WebElement parentElement = waitForElementPresent(by, error_message, 30);
-        List<WebElement> childElements = parentElement.findElements(By.className(class_name));
-        childElements.get(0);
-        System.out.println(childElements);
-        childElements.get(1);
-        System.out.println(childElements);
-        return parentElement;
+        List elements = driver.findElements(by);
+        int amount_of_elements = elements.size();
+        if (amount_of_elements == 0) {
+            String default_message = "An element " + by.toString() + " has no such results";
+            throw new AssertionError(default_message + " " + error_message);
+        }
     }
 
-    // Wait not present element method
-    private boolean waitForElementNotPresent(By by, String error_message, long timeoutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
-        wait.withMessage(error_message + "\n");
-        return wait.until(
-                ExpectedConditions.invisibilityOfElementLocated(by)
-        );
+    //Assert method size elements > 0
+    private void assertElementNotPresent(By by, String error_message)
+    {
+        List elements = driver.findElements(by);
+        int amount_of_elements = elements.size();
+        if (amount_of_elements > 0) {
+            String default_message = "An element " + by.toString() + "not present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
     }
-
 }
