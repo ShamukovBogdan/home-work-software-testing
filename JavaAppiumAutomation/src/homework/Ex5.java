@@ -173,9 +173,19 @@ public class Ex5 {
                 5
         );
 
+        String LOCATOR_FOR_OPTION_1 = "//*[@resource-id='org.wikipedia:id/item_image_1']";
+        String LOCATOR_FOR_OPTION_2 = "//*[@resource-id='org.wikipedia:id/item_image_2']";
+        String LOCATOR_FOR_OPTION_3 = "//*[@resource-id='org.wikipedia:id/item_image_3']";
+        String LOCATOR_FOR_OPTION_4 = "//*[@resource-id='org.wikipedia:id/item_image_4']";
+        String LOCATOR_FOR_OPTION_5 = "//*[@resource-id='org.wikipedia:id/item_container']//*[@text='My reading list']";
+        String LOCATOR_FOR_OPTION_6 = "//*[@resource-id='org.wikipedia:id/item_overflow_menu']";
         waitForMenuInit(
-                By.xpath("//android.widget.TextView[@text='My reading list']"),
-                "Can't wait menu"
+                By.xpath(LOCATOR_FOR_OPTION_1),
+                By.xpath(LOCATOR_FOR_OPTION_2),
+                By.xpath(LOCATOR_FOR_OPTION_3),
+                By.xpath(LOCATOR_FOR_OPTION_4),
+                By.xpath(LOCATOR_FOR_OPTION_5),
+                By.xpath(LOCATOR_FOR_OPTION_6)
         );
 
         waitForElementAndClick(
@@ -289,10 +299,13 @@ public class Ex5 {
                 .perform();
     }
 
-    //Wait element is located method
-    private void waitForMenuInit(By by, String error_message)
+    private void waitForMenuInit(By LOCATOR_FOR_OPTION_1, By LOCATOR_FOR_OPTION_2, By LOCATOR_FOR_OPTION_3, By LOCATOR_FOR_OPTION_4, By LOCATOR_FOR_OPTION_5, By LOCATOR_FOR_OPTION_6)
     {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        waitForElementPresent(LOCATOR_FOR_OPTION_1, "Can't wait first locator", 10);
+        waitForElementPresent(LOCATOR_FOR_OPTION_2,"Can't wait second locator", 10);
+        waitForElementPresent(LOCATOR_FOR_OPTION_3,"Can't wait third locator", 10);
+        waitForElementPresent(LOCATOR_FOR_OPTION_4,"Can't wait fourth locator", 10);
+        waitForElementPresent(LOCATOR_FOR_OPTION_5,"Can't wait fifth locator", 10);
+        waitForElementPresent(LOCATOR_FOR_OPTION_6,"Can't wait sixth locator", 10);
     }
 }
