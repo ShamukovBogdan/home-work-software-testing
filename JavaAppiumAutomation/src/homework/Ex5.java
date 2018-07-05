@@ -173,10 +173,15 @@ public class Ex5 {
                 5
         );
 
+        waitForMenuInit(
+                By.xpath("//android.widget.TextView[@text='My reading list']"),
+                "Can't wait menu"
+        );
+
         waitForElementAndClick(
                 By.xpath("//android.widget.TextView[@text='My reading list']"),
                 "Cannot find 'My reading list' folder",
-                25
+                5
         );
 
         //Delete first element
@@ -282,5 +287,12 @@ public class Ex5 {
                 .moveTo(left_x, middle_y)
                 .release()
                 .perform();
+    }
+
+    //Wait element is located method
+    private void waitForMenuInit(By by, String error_message)
+    {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 }
