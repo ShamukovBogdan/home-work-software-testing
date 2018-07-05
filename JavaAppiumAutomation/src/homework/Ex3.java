@@ -119,13 +119,13 @@ public class Ex3 {
         return element;
     }
 
-    //Assert method size elements == 0
+    //Assert method size elements <= 1
     private void assertElementsPresent (By by, String error_message)
     {
         List elements = driver.findElements(by);
         int amount_of_elements = elements.size();
-        if (amount_of_elements == 0) {
-            String default_message = "An element " + by.toString() + " has no such results";
+        if (amount_of_elements <= 1) {
+            String default_message = "An element " + by.toString() + " has no few results";
             throw new AssertionError(default_message + " " + error_message);
         }
     }
