@@ -8,7 +8,7 @@ import org.junit.Test;
 public class Ex6 extends MainConfig {
 
     @Test
-    public void testElementIsExist() {
+    public void testTitleIsExistOnArticle() {
 
         SearchMethods SearchMethods = new SearchMethods(driver);
         SearchMethods.clickSearchInput();
