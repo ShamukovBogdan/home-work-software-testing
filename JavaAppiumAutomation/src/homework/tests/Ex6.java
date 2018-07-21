@@ -1,11 +1,11 @@
 //package homework.tests;
 //
-//import homework.lib.MainConfig;
+//import homework.lib.homework.lib.MainConfig;
 //import homework.lib.ui.ArticleMethods;
 //import homework.lib.ui.SearchMethods;
 //import org.junit.Test;
 //
-//public class Ex6 extends MainConfig {
+//public class Ex6 extends homework.lib.MainConfig {
 //
 //    @Test
 //    public void testTitleIsExistOnArticle() {
