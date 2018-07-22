@@ -2,16 +2,11 @@ package homework.tests;
 
 import homework.lib.MainConfig;
 import homework.lib.ui.ArticleMethods;
-import homework.lib.ui.MyListMethods;
+import homework.lib.ui.MyListsMethods;
 import homework.lib.ui.NavigationUIMethods;
 import homework.lib.ui.SearchMethods;
-import io.appium.java_client.TouchAction;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Ex5 extends MainConfig {
 
@@ -37,15 +32,15 @@ public class Ex5 extends MainConfig {
         NavigationUIMethods NavigationUIMethods = new NavigationUIMethods(driver);
         NavigationUIMethods.openMyListsSection();
 
-        MyListMethods MyListMethods = new MyListMethods(driver);
-        MyListMethods.waitAllLocatorsOnList();
-        MyListMethods.clickByList();
-        MyListMethods.deleteListViaSwipe();
-        MyListMethods.waitListNotPresent();
-        MyListMethods.waitListPresent();
-        MyListMethods.clickByArticle();
-        MyListMethods.waitTitlePresent();
-        String article_title = MyListMethods.getArticleTitle();
+        MyListsMethods MyListsMethods = new MyListsMethods(driver);
+        MyListsMethods.waitAllLocatorsOnList();
+        MyListsMethods.clickByList();
+        MyListsMethods.deleteListViaSwipe();
+        MyListsMethods.waitListNotPresent();
+        MyListsMethods.waitListPresent();
+        MyListsMethods.clickByArticle();
+        MyListsMethods.waitTitlePresent();
+        String article_title = MyListsMethods.getArticleTitle();
         Assert.assertEquals(
                 "We see unexpected title!",
                 "Subprefecture and commune in Brittany, France",

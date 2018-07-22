@@ -1,4 +1,4 @@
-package lessons.lib;
+package homework.lib;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
@@ -7,20 +7,19 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.URL;
 
-public class Platform {
-
+public class MainPlatform {
     private static final String PLATFORM_IOS = "ios";
     private static final String PLATFORM_ANDROID = "android";
     private static final String APPIUM_URL = "http://127.0.0.1:4723/wd/hub";
 
-    private static Platform instance;
+    private static MainPlatform instance;
 
-    private Platform() {}
+    private MainPlatform() {}
 
-    public static Platform getInstance()
+    public static MainPlatform getInstance()
     {
         if (instance == null) {
-            instance = new Platform();
+            instance = new MainPlatform();
         }
         return instance;
     }
@@ -33,18 +32,18 @@ public class Platform {
         } else if (this.isIOS()) {
             return new IOSDriver(URL, this.getIOSDesiredCapabilities());
         } else {
-            throw new Exception("Cannot detec type of the Driver. MainPlatform value: " + this.getPlatformVar());
+            throw new Exception("Cannot detec type of the Driver. MainPlatform value: " + this.getMainPlatformVar());
         }
     }
 
     public boolean isAndroid()
     {
-        return isPlatform(PLATFORM_ANDROID);
+        return isMainPlatform(PLATFORM_ANDROID);
     }
 
     public boolean isIOS()
     {
-        return isPlatform(PLATFORM_IOS);
+        return isMainPlatform(PLATFORM_IOS);
     }
 
     private DesiredCapabilities getAndroidDesiredCapabilites()
@@ -78,13 +77,13 @@ public class Platform {
         return capabilities;
     }
 
-    private boolean isPlatform(String my_platform)
+    private boolean isMainPlatform(String my_platform)
     {
-        String platform = this.getPlatformVar();
+        String platform = this.getMainPlatformVar();
         return my_platform.equals(platform);
     }
 
-    private String getPlatformVar()
+    private String getMainPlatformVar()
     {
         return System.getenv("PLATFORM");
     }

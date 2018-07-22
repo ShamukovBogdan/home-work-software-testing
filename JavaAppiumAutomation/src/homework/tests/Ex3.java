@@ -2,7 +2,6 @@ package homework.tests;
 
 import homework.lib.MainConfig;
 import homework.lib.ui.SearchMethods;
-import lessons.lib.CoreTestCase;
 import org.junit.Test;
 
 public class Ex3 extends MainConfig {

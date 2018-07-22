@@ -1,13 +1,14 @@
 package lessons.lib.ui;
 
 import io.appium.java_client.AppiumDriver;
-import org.openqa.selenium.By;
+import lessons.lib.Platform;
 
 abstract public class MyListsPageObject extends MainPageObject {
 
     protected static String
             FOLDER_BY_NAME_TPL,
-            ARTICLE_BY_TITLE_TPL;
+            ARTICLE_BY_TITLE_TPL,
+            CLOSE;
 
     private static String getFolderXpathByName(String name_folder)
     {
@@ -34,10 +35,18 @@ abstract public class MyListsPageObject extends MainPageObject {
         );
     }
 
+    public void closeiOSPopUpScreen(){
+        this.waitForElementAndClick(
+                CLOSE,
+                "Cannot click skip button on popup screen",
+                10
+        );
+    }
+
     public void waitForArticleToAppearByTitle(String article_title)
     {
         String article_xpath = getArticleXpathByTitle(article_title);
-        this.waitForElementPresent(article_xpath, "Cannot find saved article by title" + article_title + "!", 15);
+        this.waitForElementPresent(article_xpath, "Cannot find saved article by title " + article_title + "!", 15);
     }
 
     public void waitForArticleToDisappearByTitle(String article_title)
@@ -49,11 +58,13 @@ abstract public class MyListsPageObject extends MainPageObject {
     public void swipeByArticleToDelete(String article_title)
     {
         this.waitForArticleToAppearByTitle(article_title);
-        String article_xpath = getFolderXpathByName(article_title);
+        String article_xpath = getArticleXpathByTitle(article_title);
         this.swipeElementToLeft(
                 article_xpath,
                 "Cannot find  article 'First reading list'"
-        );
+        ); if (Platform.getInstance().isIOS()){
+            this.clickElementToTheRightUpperCorner(article_xpath, "Cannot find saved article");
+        }
         this.waitForArticleToDisappearByTitle(article_title);
     }
 }

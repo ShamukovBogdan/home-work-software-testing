@@ -136,6 +136,22 @@ public class MainPageObject {
         }
     }
 
+    public void clickElementToTheRightUpperCorner(String locator, String error_message)
+    {
+        WebElement element = this.waitForElementPresent(locator + "/..", error_message);
+        int rigth_x = element.getLocation().getX();
+        int uppet_y = element.getLocation().getY();
+        int lower_y = uppet_y + element.getSize().getHeight();
+        int middle_y = (uppet_y + lower_y) / 2;
+        int width = element.getSize().getWidth();
+
+        int point_to_click_x = (rigth_x + width) - 3;
+        int point_to_click_y = middle_y;
+
+        TouchAction action = new TouchAction(driver);
+        action.tap(point_to_click_x, point_to_click_y).perform();
+    }
+
     //Swipe left method
     public void swipeElementToLeft(String locator, String error_message)
     {

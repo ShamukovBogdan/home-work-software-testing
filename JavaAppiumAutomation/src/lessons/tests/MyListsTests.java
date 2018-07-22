@@ -45,9 +45,8 @@ public class MyListsTests extends CoreTestCase {
         if (Platform.getInstance().isAndroid()) {
             MyListsPageObject.openFolderByName(name_folder);
         } else {
-
+            MyListsPageObject.closeiOSPopUpScreen();
         }
-
         MyListsPageObject.swipeByArticleToDelete(article_title);
     }
 
