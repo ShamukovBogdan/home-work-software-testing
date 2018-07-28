@@ -55,6 +55,14 @@ public class MainMethods {
         return element;
     }
 
+
+    // Ex10 method
+    public void isElementEnabled(String locator)
+    {
+        WebElement element = driver.findElementByAccessibilityId(locator);
+        boolean isEnabled = element.isEnabled();
+    }
+
     // Wait and send keys method
     public WebElement waitForElementAndSendKeys(String locator, String value, String error_message, long timeoutInSeconds)
     {
@@ -97,6 +105,17 @@ public class MainMethods {
 
     //Assert method size elements > 0
     public void assertElementNotPresent(String locator, String error_message)
+    {
+        By by = this.getLocatorByString(locator);
+        List elements = driver.findElements(by);
+        int amount_of_elements = elements.size();
+        if (amount_of_elements > 0) {
+            String default_message = "An element " + by.toString() + "not present";
+            throw new AssertionError(default_message + " " + error_message);
+        }
+    }
+
+    public void assertElementPresentMoreTwoLocators(String locator, String error_message)
     {
         By by = this.getLocatorByString(locator);
         List elements = driver.findElements(by);

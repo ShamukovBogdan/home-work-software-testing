@@ -7,7 +7,7 @@ public class iOSNavigationUIMethods extends NavigationUIMethods {
 
     static
     {
-
+        MY_LISTS_ICON = "id:Saved";
     }
 
     public iOSNavigationUIMethods(AppiumDriver driver)

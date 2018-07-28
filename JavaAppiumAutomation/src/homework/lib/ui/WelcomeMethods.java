@@ -3,6 +3,7 @@ package homework.lib.ui;
 import io.appium.java_client.AppiumDriver;
 
 public class WelcomeMethods extends MainMethods {
+
     private static final String
             STEP_LEARN_MORE_LINK = "id:Learn more about Wikipedia",
             STEP_NEW_WAY_TO_EXPLORE_LINK = "id:New ways to explore",

@@ -11,11 +11,25 @@ public class SearchMethods extends MainMethods {
             SEARCH_RESULT_LOCATOR,
             SEARCH_CLOSE_BUTTON,
             EMPTY_RESULT_LABEL,
-            SEARCH_RESULT_BY_SUBSTRING_TPL;
+            SEARCH_RESULT_BY_SUBSTRING_TPL,
+            SEARCH_CANCEL_BUTTON,
+            SEARCH_RESULT_ELEMENT,
+            SEARCH_EMPTY_RESULT_ELEMENT;
 
     public SearchMethods(AppiumDriver driver)
     {
         super(driver);
+    }
+
+    public void initSearchInput()
+    {
+        this.waitForElementAndClick(SEARCH_INIT_ELEMENT, "Cannot find and click search init element", 5);
+        this.waitForElementPresent(SEARCH_INIT_ELEMENT, "Cannot find search input after clicking search init element");
+    }
+
+    public void typeSearchLine(String search_line)
+    {
+        this.waitForElementAndSendKeys(SEARCH_INPUT, search_line, "Cannot find and type into search input", 5);
     }
 
     /*TEMPLATES METHODS*/
@@ -57,9 +71,14 @@ public class SearchMethods extends MainMethods {
         this.assertElementsPresent(SEARCH_RESULT_LOCATOR, "We not found results of " + SEARCH_RESULT_LOCATOR );
     }
 
+    public void checkMoreTwoElementsPresent()
+    {
+        this.assertElementPresentMoreTwoLocators(SEARCH_RESULT_LOCATOR, "We not found results of " + SEARCH_RESULT_LOCATOR );
+    }
+
     public void checkElementNotPresent()
     {
-        this.assertElementNotPresent(SEARCH_RESULT_LOCATOR, "We found some result's");
+        this.assertElementNotPresent(SEARCH_RESULT_LOCATOR, "We not found some result's");
     }
 
     public void waitForLocatorPresent()
@@ -70,5 +89,16 @@ public class SearchMethods extends MainMethods {
     public void waitForEmptyLocatorPresent()
     {
         this.waitForElementPresent(EMPTY_RESULT_LABEL, "Cannot find empty result label on page by the request", 15);
+    }
+
+    public int getAmountOfFoundArticles()
+    {
+        String search_result_locator = "//*[@resource-id='org.wikipedia:id/search_results_list']/*[@resource-id='org.wikipedia:id/page_list_item_container']";
+        this.waitForElementPresent(
+                SEARCH_RESULT_ELEMENT,
+                "Cannot find anything by the request",
+                15
+        );
+        return this.getAmountOfElements(SEARCH_RESULT_ELEMENT);
     }
 }
